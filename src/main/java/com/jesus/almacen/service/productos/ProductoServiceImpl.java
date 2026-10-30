@@ -7,13 +7,29 @@ import com.jesus.almacen.enums.Categoria;
 import com.jesus.almacen.exceptions.RecursoNoEncontradoException;
 import com.jesus.almacen.mappers.ProductoMapper;
 import com.jesus.almacen.repositories.ProductoRepository;
+import com.jesus.almacen.specifications.ProductoSpecifications;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+
+/*
+ *
+ *ORQUESTA EL CASO DE USO
+ *
+ * IMPLEMENTA LAS OPERACIONES
+ *
+ * FLUJO: BUSCAR, VALIDAR EXISTENCIA,
+ *  GUARDAR, LANZAR EXCEPCIONES
+ *
+ *QUE PUEDES HACER PERO NO COMO
+ * */
+
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +44,20 @@ public class ProductoServiceImpl implements ProductoService{
     @Override
     @Transactional(readOnly = true)
     public List<ProductoResponse> listar(String nombre, String categoria, BigDecimal precioMin, BigDecimal precioMax) {
-        log.info("Listando todos los productos");
-        return productoRepository.findAll().stream()
+        log.info("Listando con filtros");
+
+        Categoria categoriaEnum = (categoria == null || categoria.isBlank())
+                ? null
+                : Categoria.obtenerCategoriaPorDescripcion(categoria.trim());
+
+        Specification<Producto> filtros = Specification.allOf(
+                ProductoSpecifications.nombreParcial(nombre),
+                ProductoSpecifications.categoriaIgual(categoriaEnum),
+                ProductoSpecifications.precioMinimo(precioMin),
+                ProductoSpecifications.precioMaximo(precioMax)
+        );
+
+        return productoRepository.findAll(filtros).stream()
                 .map(productoMapper::entidadAResponse)
                 .toList();
     }

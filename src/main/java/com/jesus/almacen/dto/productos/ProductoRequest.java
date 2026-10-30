@@ -8,6 +8,17 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
+/*
+* DATA TRANSFER OBJECT
+* DEFINE QUE DATOS ENTRAN Y SALEN DE TU API, SEPARADA DE TU ENTIDAD
+* CAMPOS, @NOTBLANK, @CHEMA
+*
+* REQUEST: CLIENTE -> API
+* LO QUE EL CLIENTE PUEDE ENVIAR
+*
+*
+*NADA DE LOGICA, ANOTACIONES DE JPA
+* */
 @Schema(description = "Datos necesarios para crear o actualizar un producto")
 public record ProductoRequest(
 
@@ -16,7 +27,7 @@ public record ProductoRequest(
         @Size(min = 5, max = 30, message = "El nombre debe tener entre 5 y 30 caracteres")
         String nombre,
 
-        @Schema(
+        @Schema(//SOLO PARA UN CATALOGO
                 description = "Categoria del producto (puede estar en mayúsculas o minúsculas)",
                 example = "Electronico",
                 allowableValues = {

@@ -4,6 +4,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 
+/*
+ * DATA TRANSFER OBJECT
+ * DEFINE QUE DATOS ENTRAN Y SALEN DE TU API, SEPARADA DE LA ENTIDAD
+ * CAMPOS, @NOTBLANK @SCHEMA
+ *
+ * RESPONSE: API -> CLIENTE
+ * LO QUE LA API DECIDE MOSTRAR
+ *
+ *
+ * */
 @Schema(description = "Información del producto")
 public record ProductoResponse (
 

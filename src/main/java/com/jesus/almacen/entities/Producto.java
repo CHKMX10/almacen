@@ -12,6 +12,19 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/*
+ * REPRESENTA LA TABLA Y SUS REGLAS
+ * ES LA CLASE POR LA QUE SE EMPIEZA
+ *
+ * @ENTITY, COLUMNAS, VALIDACIONES PROPIAS:
+ *       CREAR()
+ *       descontar()
+ *       validar()
+ *       verificar()
+ *
+ *
+ * */
+
 @Entity//Esta es el encapsulamiento, tiene que asegurar la integridad de los datos
 @Table(name = "PRODUCTOS")
 @NoArgsConstructor //CONSTRUCTOR VACIO
@@ -21,6 +34,7 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //le dice a JPA que la base de datos genere automáticamente el valor del identificador de cada entidad
     @Column(name = "ID_PRODUCTO")
     private Long id;
 
@@ -37,19 +51,20 @@ public class Producto {
     @Column(name = "CANTIDAD", nullable = false)
     private Integer cantidad;
 
+    //  METODOS PARA VALIDAR LOS DATOS, CRUD, ENTRE OTROS
     private static void validarDatos(String nombre, Categoria categoria,
                                      BigDecimal precio, Integer cantidad) {
 
         StringCustomUtils.validarTamanio(nombre,5, 30, "El nombre es requerido y debe tener entre 5 y 30 caracteres");//validamos los datos en solitario sin delegar responsabilidades
 
-        if (categoria == null)
+        if (categoria == null)//verificar que no sean nullos
             throw new DatoInvalidoException("La categoria es requerida");
 
         ValoresNumericosUtils.validarEnteroPositivo(cantidad,
-                "El precio es requerido y debe ser positivo");
+                "La cantidad es requerida y debe ser positivo");
 
         ValoresNumericosUtils.validarBigDecimalPositivo(precio,
-                "La cantidad es requerida y debe ser positivo");
+                "El precio es requerida y debe ser positivo");
     }
 
     public void actualizar(
@@ -64,25 +79,26 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    public void aumentarCantidad (int cantidad){
-        ValoresNumericosUtils.validarEnteroPositivo(cantidad,
+    public void aumentarCantidad (int cantidadDev){
+        ValoresNumericosUtils.validarEnteroPositivo(cantidadDev,
                 "La cantidad debe ser positiva");
-        this.cantidad += cantidad;
+        this.cantidad += cantidadDev;
     }
 
-    public void descontarCantidad (int cantidad){
-
-        ValoresNumericosUtils.validarEnteroPositivo(cantidad,
+    public void descontarCantidad (int cantidadVen){
+        ValoresNumericosUtils.validarEnteroPositivo(cantidadVen,
                 "La cantidad debe ser positiva");
 
-        if ( cantidad > this.cantidad)
+        if ( cantidadVen > this.cantidad)
             throw new DatoInvalidoException(
                     "La cantidad debe de ser menor o " +
                             "igual a la cantidad actual");
 
-        this.cantidad -= cantidad;
+        this.cantidad -= cantidadVen;
     }
 
+
+    // METODO PARA CREAR EL "PRODUCTO" PARA JAVA, FABRICA ESTATICA
     public static Producto crear(String nombre, Categoria categoria,
                                  BigDecimal precio,Integer cantidad) {
 
@@ -93,7 +109,7 @@ public class Producto {
                 .categoria(categoria)
                 .cantidad(cantidad)
                 .precio(precio)
-                .build();
+                .build();// DEVUELVE EL PRODUCTO DEL METODO CONSTRUIDO
 
         //return new Producto(null, nombre, categoria, precio, cantidad);
     }

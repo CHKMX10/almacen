@@ -17,6 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+/*
+ *
+ *ORQUESTA EL CASO DE USO
+ *
+ * IMPLEMENTA LAS OPERACIONES
+ *
+ * FLUJO: BUSCAR, VALIDAR EXISTENCIA,
+ *  GUARDAR, LANZAR EXCEPCIONES
+ *
+ *QUE PUEDES HACER PERO NO COMO
+ * */
+
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -44,7 +58,7 @@ public class SucursalesServiceImpl implements SucursalesService {
     @Override
     public SucursalesResponse registrar(SucursalesRequest request) {
 
-        log.info("Registrando nuevo producto...");
+        log.info("Registrando nueva sucursal...");
 
         validarDatosUnicos(request);
 
@@ -59,6 +73,8 @@ public class SucursalesServiceImpl implements SucursalesService {
 
     @Override
     public SucursalesResponse actualizar(SucursalesRequest request, Long id) {
+        log.info("Actualizando una sucursal con id: {} ", id);
+
         Sucursales sucursales = obtenerSucursalOException(id);
 
         validarCambiosUnicos(request, id);
@@ -103,18 +119,18 @@ public class SucursalesServiceImpl implements SucursalesService {
     private void validarDatosUnicos(SucursalesRequest request){
         log.info("Validando nombre único");
 
-        if(sucursalesRepository.existsByNombreIgnoreCase(request.nombre().trim()));
-            throw new RuntimeException(
+        if(sucursalesRepository.existsByNombreIgnoreCase(request.nombre().trim()))
+            throw new ConflictoException(
                     "Ya existe una sucursal con el nombre de: " + request.nombre()
             );
     }
-    private void validarCambiosUnicos(SucursalesRequest request, Long id){
+    private void validarCambiosUnicos(SucursalesRequest request, Long id) {
         log.info("Validando nombre único");
 
-        if(sucursalesRepository.existsByNombreIgnoreCaseAndIdNot(request.nombre().trim(),id));
-        throw new ConflictoException(
-                "Ya existe una sucursal con el nombre de: " + request.nombre()
-        );
+        if (sucursalesRepository.existsByNombreIgnoreCaseAndIdNot(request.nombre().trim(), id))
+            throw new ConflictoException(
+                    "Ya existe una sucursal con el nombre de: " + request.nombre()
+            );
     }
-
 }
+

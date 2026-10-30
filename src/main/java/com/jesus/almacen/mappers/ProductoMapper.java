@@ -6,6 +6,13 @@ import com.jesus.almacen.enums.Categoria;
 import com.jesus.almacen.entities.Producto;
 import org.springframework.stereotype.Component;
 
+/*
+ * CONVERTIR OBJETOS
+ *
+ * ENTIDAD <-> DTO
+ *
+ * NO SE PONE LOGICA DE NEGOCIO
+ * */
 @Component
 public class ProductoMapper {
 

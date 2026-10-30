@@ -5,15 +5,21 @@ import com.jesus.almacen.dto.sucursales.SucursalesResponse;
 import com.jesus.almacen.entities.Sucursales;
 import org.springframework.stereotype.Component;
 
-
+/*
+ * CONVERTIR OBJETOS
+ *
+ * ENTIDAD <-> DTO
+ *
+ * NO SE PONE LOGICA DE NEGOCIO
+ * */
 @Component
 public class SucursalesMapper {
 
     public Sucursales requestAEntidad(SucursalesRequest request){
 
         return request == null
-                ? null
-                : Sucursales.crear(
+                        ? null
+                        : Sucursales.crear(
                         request.nombre(),
                         request.direccion()
         );

@@ -5,13 +5,24 @@ import com.jesus.almacen.utils.StringCustomUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/*
+ * REPRESENTA UN CONJUNTO FIJO DE VALORES VÁLIDOS
+ * PARA NO DEPENDER DE STRING SUELTOS
+ *
+ *
+ * VALORES FIJOS
+ *
+ * UN METODO PARA CONVERTIR TEXTO -> ENUM
+ *
+ * DATOS PROPIOS DEL VALOR (NOMBRE PARA MOSTRAR)
+ * */
 @RequiredArgsConstructor
 @Getter
 public enum Categoria {
     ALIMENTO("Alimento"),
     HIGIENE("Higiene"),
     JUGUETE("Juguete"),
-    ELECTRONICA("Electronica"),
+    ELECTRONICA("Eléctronica"),
     ROPA("Ropa"),
     ACCESORIO("Accesorio"),
     FARMACIA("Farmacia");

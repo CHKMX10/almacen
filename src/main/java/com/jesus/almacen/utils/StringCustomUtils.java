@@ -3,7 +3,12 @@ package com.jesus.almacen.utils;
 import com.jesus.almacen.exceptions.DatoInvalidoException;
 
 import java.util.Locale;
-
+/*
+* clase de utilidades propia del proyecto para operaciones reutilizables con textos.
+* No es una clase estándar de Java ni de Spring
+*
+*
+* */
 public class StringCustomUtils {
 
     public static void validarNoVacio(String texto, String mensaje){
@@ -24,5 +29,7 @@ public class StringCustomUtils {
              .replace("ú","u").replace("ü","u")
              .replace("ñ","n");
     }
+
+
 
 }

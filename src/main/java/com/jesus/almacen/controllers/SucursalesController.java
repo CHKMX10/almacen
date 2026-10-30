@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+/*
+CLASE "MAIN" QUE DEVUELVE DATOS A MENUDO JSON
+SPRING LO MANDA DIRECTAMENTE AL CLIENTE
+DEVUELVE DATOS
+*/
+
 @RestController
 @RequestMapping("/api/surcursales")
 @RequiredArgsConstructor

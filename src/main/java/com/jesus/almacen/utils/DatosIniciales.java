@@ -2,9 +2,12 @@ package com.jesus.almacen.utils;
 
 import com.jesus.almacen.entities.Producto;
 import com.jesus.almacen.entities.Sucursales;
+import com.jesus.almacen.entities.Venta;
 import com.jesus.almacen.enums.Categoria;
 import com.jesus.almacen.repositories.ProductoRepository;
 import com.jesus.almacen.repositories.SucursalRepository;
+import com.jesus.almacen.repositories.VentasRepository;
+import com.jesus.almacen.service.ventas.VentaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +24,11 @@ public class DatosIniciales implements CommandLineRunner {
     private final ProductoRepository productoRepository;
 
     private final SucursalRepository sucursalRepository;
+
+    private final VentasRepository ventasRepository;
+
+    private final VentaService ventaService;
+
     @Override
     public void run(String... args) throws Exception {
         if (productoRepository.count() == 0){

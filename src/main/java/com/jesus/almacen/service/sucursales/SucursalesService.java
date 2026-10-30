@@ -7,7 +7,15 @@ import com.jesus.almacen.dto.sucursales.SucursalesResponse;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+/*
+ *
+ *ORQUESTA EL CASO DE USO
+ *
+ * FLUJO: BUSCAR, VALIDAR EXISTENCIA,
+ *  GUARDAR, LANZAR EXCEPCIONES
+ *
+ *QUE PUEDES HACER PERO NO COMO
+ * */
 public interface SucursalesService {
 
     List<SucursalesResponse> listar();

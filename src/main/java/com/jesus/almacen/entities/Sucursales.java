@@ -10,6 +10,18 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/*
+ * REPRESENTA LA TABLA Y SUS REGLAS
+ * ES LA CLASE POR LA QUE SE EMPIEZA
+ *
+ * @ENTITY, COLUMNAS, VALIDACIONES PROPIAS:
+ *       CREAR()
+ *       descontar()
+ *       validar()
+ *       verificar()
+ *
+ *
+ * */
 
 @Entity
 @Table(name= "SUCURSALES")
@@ -29,6 +41,9 @@ public class Sucursales {
     @Column(name = "DIRECCION", length = 150, nullable = false )
     private String direccion;
 
+
+    //  METODOS PARA VALIDAR LOS DATOS, CRUD, ENTRE OTROS
+
     private static void validarDatos(String nombre, String direccion){
 
         StringCustomUtils.validarTamanio(nombre, 5, 50, "El nombre es requerido y debe contener entre 5 y 30 caracteres");
@@ -44,13 +59,15 @@ public class Sucursales {
         this.direccion = direccion.trim();
     }
 
+    // METODO PARA CREAR EL "PRODUCTO" PARA JAVA, FABRICA ESTATICA
+
     public static Sucursales crear(String nombre, String direccion){
         validarDatos(nombre, direccion);
 
         return Sucursales.builder()
                 .nombre(nombre.trim())
                 .direccion(direccion.trim())
-                .build();
+                .build();// DEVUELVE EL PRODUCTO DEL METODO CONSTRUIDO
     }
 
 
